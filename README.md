@@ -1,6 +1,10 @@
 # Drake Tutorials
 
-Hyun Research Lab 
+Logan Dihel
+
+Hyun Research Lab
+
+Purdue University
 
 Learn Drake 2025
 
