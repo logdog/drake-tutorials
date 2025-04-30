@@ -2,10 +2,9 @@
 
 In this lesson, you will learn to model systems of the form
 
-$$
-\dot x = f(x, u) \\
+$$\dot x = f(x, u)$$
+
 $$x(0) = x_0$$ 
-$$
 
 where $$x_0$$ is given as some initial condition and $$u$$ is the input. In Drake, you would define this as a [LeafSystem](https://drake.mit.edu/doxygen_cxx/classdrake_1_1systems_1_1_leaf_system.html). 
 
@@ -13,10 +12,9 @@ where $$x_0$$ is given as some initial condition and $$u$$ is the input. In Drak
 
 Specifically, you will simulate a double integrator with dynamics:
 
-$$
-\dot{x}_1 = x_2 \\
-\dot{x}_2 = u
-$$
+$$\dot{x}_1 = x_2$$
+
+$$\dot{x}_2 = u$$
 
 with $$u(t) = -1$$ for sake of example. Your task is to go through the code and understand it. When you are done, you will be asked to make the following changes:
 
