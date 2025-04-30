@@ -28,13 +28,13 @@ with $$u(t) = -1$$ for sake of example. Your task is to go through the code and 
 
 ```python
 
-class MyReferenceSignal(LeafSystem):
+class Controller(LeafSystem):
     
     def __init__(self):   
         LeafSystem.__init__(self)
         self.DeclareVectorOutputPort("u", 1, self.MyOutput)
 
-    def MyOutput(self, context, output):
+    def Controller(self, context, output):
         t = context.get_time()
         u = 10*t # modify this line
         output.SetFromVector([u])

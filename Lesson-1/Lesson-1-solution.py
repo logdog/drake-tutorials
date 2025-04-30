@@ -39,7 +39,7 @@ class DoubleIntegrator(LeafSystem):
             np.array([x_dot, x_ddot])
         )
         
-class MyReferenceSignal(LeafSystem):
+class Controller(LeafSystem):
     
     def __init__(self):   
         LeafSystem.__init__(self)
@@ -57,15 +57,15 @@ if __name__ == "__main__":
     plant = builder.AddSystem(DoubleIntegrator())
     plant.set_name("double integrator")
     
-    my_input = builder.AddSystem(MyReferenceSignal())
-    my_input.set_name("sinusoidal input source")
+    controller = builder.AddSystem(Controller())
+    controller.set_name("My Controller")
     
-    builder.Connect(my_input.get_output_port(), plant.get_input_port())
+    builder.Connect(controller.get_output_port(), plant.get_input_port())
     
     logger = LogVectorOutput(plant.get_output_port(), builder)
     logger.set_name("output state logger")
     
-    logger2 = LogVectorOutput(my_input.get_output_port(), builder)
+    logger2 = LogVectorOutput(controller.get_output_port(), builder)
     logger2.set_name("input logger")
     
     diagram = builder.Build()

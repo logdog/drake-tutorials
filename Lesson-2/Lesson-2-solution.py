@@ -35,12 +35,12 @@ class DoubleIntegrator(LeafSystem):
             np.array([x_dot, x_ddot])
         )
         
-class MyController(LeafSystem):
+class Controller(LeafSystem):
     
     def __init__(self):   
         LeafSystem.__init__(self)
         self.DeclareVectorInputPort("x", 2)
-        self.DeclareVectorOutputPort("u", 1, self.MyOutput)
+        self.DeclareVectorOutputPort("u", 1, self.Output)
         
         self.kp = 10.0
         self.kd = 5.0
@@ -48,7 +48,7 @@ class MyController(LeafSystem):
         self.target_x = 1.0
         self.target_x_dot = 0.0
 
-    def MyOutput(self, context, output):
+    def Output(self, context, output):
         # unpack the state
         state = self.get_input_port().Eval(context)
         x, x_dot = state
@@ -64,7 +64,7 @@ if __name__ == "__main__":
     plant = builder.AddSystem(DoubleIntegrator())
     plant.set_name("double integrator")
     
-    controller = builder.AddSystem(MyController())
+    controller = builder.AddSystem(Controller())
     controller.set_name("PD controller")
     
     builder.Connect(controller.get_output_port(), plant.get_input_port())

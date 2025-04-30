@@ -35,7 +35,7 @@ class DoubleIntegrator(LeafSystem):
             np.array([x_dot, x_ddot])
         )
         
-class MyController(LeafSystem):
+class Controller(LeafSystem):
     
     def __init__(self):   
         LeafSystem.__init__(self)
@@ -49,7 +49,7 @@ class MyController(LeafSystem):
         self.target_x = 1.0
         self.target_x_dot = 0.0
 
-    def MyOutput(self, context, output):
+    def Output(self, context, output):
         # TODO: read the input to get x and x_dot
         
         # PD controller
@@ -63,7 +63,7 @@ if __name__ == "__main__":
     plant = builder.AddSystem(DoubleIntegrator())
     plant.set_name("double integrator")
     
-    controller = builder.AddSystem(MyController())
+    controller = builder.AddSystem(Controller())
     controller.set_name("PD controller")
     
     # TODO: connect the controller output to the plant input
