@@ -9,7 +9,7 @@ Again, we will use a double-integrator as our system (plant) but we will design 
 Use a feedback controller of the following form:
 
 $$
-u = -k_p (x - x^*)  - k_d (\dot{x} - \dot{x}^*)
+u = -k_p (x - x^\*)  - k_d (\dot{x} - \dot{x}^\*)
 $$
 
 where $$k_p = 10$$ and $$k_d = 5$$.

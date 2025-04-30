@@ -40,7 +40,7 @@ Now, you will create a closed-loop system which can do swing-up control of the i
 
 > Hint: use `DeclareVectorOutputPort("E", 1, self.CalcEnergy)` and define the corresponding function `CalcEnergy(self, context, output)`. Make sure that when the pendulum state is at the origin, the total energy is zero.
 
-When the energy error is small and the pendulum is near the upright position, you can switch to an LQR controller. You will need to linearize the pendulum about the upright equilibrium point in order to get the correct K matrix. Also, the feedback controller should be $$u = -K(x - x^*)$$ where $$x^* = (\pi, 0)$$ is the target upright state of the pendulum.
+When the energy error is small and the pendulum is near the upright position, you can switch to an LQR controller. You will need to linearize the pendulum about the upright equilibrium point in order to get the correct K matrix. Also, the feedback controller should be $$u = -K(x - x^\*)$$ where $$x^\* = (\pi, 0)$$ is the target upright state of the pendulum.
 
 ```python
 context = pendulum.CreateDefaultContext()
@@ -51,6 +51,6 @@ sys = Linearize(pendulum, context)
 
 > Note: you can either make a few difference controllers (energy shaping, LQR) and then create a third system (mux) to dynamically switch which controller output is actually going to the plant based on the energy level and plant state, or you can just define one massive controller to do everything. The choice is yours.
 
-> Warning: because the pendulum dynamics technically evolve on a circle, there can be issues with "wrapping" the angle $$\theta$$. We have defined the target position to be $$x^* = (\pi, 0)$$ so if the pendulum is upright at $$x = (3\pi, 0)$$, the controller won't actually realize the pendulum is in the upright state and will apply clockwise torque to reduce the value of $$\theta$$. You can either account for this by wrapping $$\theta$$ to be on the interval $$[0,2\pi)$$ inside your controller, or you can just cheat and use an initial condition that just "works" by avoiding this problem (this might take a few attempts to guess good initial conditions).
+> Warning: because the pendulum dynamics technically evolve on a circle, there can be issues with "wrapping" the angle $$\theta$$. We have defined the target position to be $$x^\* = (\pi, 0)$$ so if the pendulum is upright at $$x = (3\pi, 0)$$, the controller won't actually realize the pendulum is in the upright state and will apply clockwise torque to reduce the value of $$\theta$$. You can either account for this by wrapping $$\theta$$ to be on the interval $$[0,2\pi)$$ inside your controller, or you can just cheat and use an initial condition that just "works" by avoiding this problem (this might take a few attempts to guess good initial conditions).
 
 This is a hard task, but you can find inspiration [in Chapter 2 of underactuated.mit.edu](https://underactuated.mit.edu/pend.html#section3) and its [deepnote notebook solution](https://deepnote.com/workspace/Underactuated-2ed1518a-973b-4145-bd62-1768b49956a8/project/314062d5-b839-4089-b02f-6c21e42e9581/notebook/energy_shaping-fa3f57d134b6498ea52d50dec2128d03).
