@@ -1,22 +1,10 @@
 import numpy as np
-import matplotlib.pyplot as plt
 
 from pydrake.all import (
-    plot_system_graphviz,
-    DiagramBuilder,
-    Simulator,
-    LeafSystem,
-    LogVectorOutput,
-    
     Linearize,
-    RollPitchYaw,
-    Quaternion,
     TemplateSystem,
     LeafSystem_, 
-    PortDataType,
     LinearQuadraticRegulator,
-    DiscreteTimeLinearQuadraticRegulator,
-    DiscreteTimeApproximation,
 )
 
 @TemplateSystem.define("Pendulum_")
@@ -63,19 +51,23 @@ Pendulum = Pendulum_[None] # default instantiation
 if __name__ == "__main__":
     
     pendulum = Pendulum()
-
-    # linearize the pendulum in the downward position
-    context = pendulum.CreateDefaultContext()
-    pendulum.get_input_port().FixValue(context, [0])
-    sys = Linearize(pendulum, context)
-    print("Pendulum Linearized in Downward Position")
-    print(f"{sys.A()=}, \n{sys.B()=}, \n{sys.C()=}, \n{sys.D()=}")
     
-    # Compute the LQR controller for the pendulum in the downward position
-    Q = np.diag([5, 3])
+    # linearize the pendulum  about the bottom equilibrium point
+    
+    # choose the equilibrium point we wish to linearize about
+    context = pendulum.CreateDefaultContext()
+    context.SetContinuousState([0, 0]) # (or [np.pi, 0] for the top equilibrium)
+    pendulum.get_input_port().FixValue(context, [0]) 
+
+    sys = Linearize(pendulum, context)
+    
+    # Compute the LQR controller for the pendulum (you can tune Q, R as you wish)
+    Q = np.diag([10, 1])
     R = np.diag([1])
     K = LinearQuadraticRegulator(sys.A(), sys.B(), Q, R)[0]
     
+    # print the results of linearization and LQR
+    print(f"{sys.A()=}, \n{sys.B()=}, \n{sys.C()=}, \n{sys.D()=}")
     print(f"Computed LQR controller: {K=}")
     
     
