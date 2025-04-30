@@ -88,7 +88,6 @@ if __name__ == "__main__":
     
     # create the simulator
     simulator = Simulator(diagram, context)
-    simulator.set_target_realtime_rate(1.0)
     
     # run the simulation
     print("Running simulation...")
