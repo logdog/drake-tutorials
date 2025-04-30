@@ -22,7 +22,7 @@ with $$u(t) = -1$$ for sake of example. Your task is to go through the code and 
 
 1. Change the initial conditions and constant input vector to something else.
 
-2. Modify the system dynamics to change the block's mass and/or incorporate linear viscuous drag force (proportional to the velocity)
+2. Modify the system dynamics. For example, a block sliding across a plane is modeled with $$F = ma$$ i.e. $$m \ddot{x} = u$$. Change the block's mass and/or incorporate linear viscuous drag force (proportional to the velocity).
 
 3. Replace the `ConstantVectorSource` with your own leaf system that outputs a sinusoid. Connect the output of this leaf system to the double integrator. Also, add another logger to visualize the input to the double integrator. *Hint: here is some more starter code.*
 

@@ -29,7 +29,9 @@ class DoubleIntegrator(LeafSystem):
         x_dot = state.GetAtIndex(1)
         
         # state space equations
-        x_ddot = u - 0.5*x_dot
+        # mass = 2 kg
+        # damping = 0.5 N-s/m
+        x_ddot = 1/2 * (u - 0.5*x_dot)
         
         # update the derivatives for the continous-time integrator
         # print(f"DoCalcTimeDerivatives(): t={context.get_time()}, u={u}, x={x}, x_dot={x_dot}, x_ddot={x_ddot}")
