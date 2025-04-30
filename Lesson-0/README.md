@@ -5,7 +5,7 @@
 First, clone this repository. On a terminal on your computer, navigate to a good place for this repository to exist, and run the following command to clone the repo.
 
 ```
-git clone git@github.com:Hyun-Research-Lab/drake-tutorials.git
+git clone git@github.com:logdog/drake-tutorials.git
 ```
 
 Open this repo in VSCode, making sure that it is the only folder open (check the Explorer tab). 
