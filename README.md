@@ -15,3 +15,8 @@ Learn Drake 2025
     * Linearize Pendulum About Two Equilibrium Points
     * Design and Simulate LQR Controllers
     * Implement Swingup Controller for Pendulum
+* [Lesson 4: Adding Visualization using Meshcat and Scene Graph](./Lesson-4/)
+    * Use Meshcat to add visualization objects decoupled from simulation
+    * Use Scene Graph and Meshcat Visualizer to add geometry into simulation
+* [Lesson 5: Simulate with Multibody Plant](./Lesson-5/)
+* [Lesson 6: Create Multibody Plant from URDF](./Lesson-6/)
