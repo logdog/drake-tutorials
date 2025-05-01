@@ -106,3 +106,8 @@ Documentation for all of this is spread out all across Drake. I recommend you lo
 ---
 
 For your assignment, create an animation for the swingup pendulum simulation using what you learned in task 2. You will need to associate the same `frame_id` for two different geometry instances: `pendulum_mass` and `pendulum_arm`.
+
+If you would like another challenge, try to change the color of the mass and arm. 
+* Hint: there is a helper function to do this. Search for Phong at [this link](https://drake.mit.edu/doxygen_cxx/namespacedrake_1_1geometry.html).
+* If you want to know why I would ever search "Phong", it's because I read [this documentation about Drake materials](https://drake.mit.edu/doxygen_cxx/group__geometry__file__formats.html).
+* In the solution, I provide two different methods of achieving the same goal.
