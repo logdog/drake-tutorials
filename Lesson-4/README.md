@@ -18,10 +18,10 @@ meshcat.SetObject("my_block", Box(0.1, 0.1, 0.1), Rgba(0.5, 0.5, 0.5, 1))
 We can then start the recording, and use `meshcat.SetTransform()` to move the block.
 ```python
 meshcat.StartRecording(frames_per_second=64)
-    for i in range(len(t)):
-        T = RigidTransform()
-        T.set_translation([x[i],0,0.05])
-        meshcat.SetTransform("my_block", T, t[i])
+for i in range(len(t)):
+    T = RigidTransform()
+    T.set_translation([x[i],0,0.05])
+    meshcat.SetTransform("my_block", T, t[i])
 ```
 
 Finally, we can stop recording and publish the recording:
@@ -39,18 +39,18 @@ Using what you learned in Task 1 thus far, create an animation for the pendulum.
 
 ```python
 meshcat = Meshcat()
-    meshcat.SetObject("pendulum/arm", ...)
-    meshcat.SetTransform("pendulum/arm", ...)
-    meshcat.SetObject("pendulum/mass", ...)
-    meshcat.SetTransform("pendulum/mass", ...)
-    
-    meshcat.StartRecording()
-    for i in range(...):
-        meshcat.SetTransform("pendulum", ..., t[i])
-    meshcat.SetTransform("pendulum", ..., t[0])
-    
-    meshcat.StopRecording()
-    meshcat.PublishRecording()
+meshcat.SetObject("pendulum/arm", ...)
+meshcat.SetTransform("pendulum/arm", ...)
+meshcat.SetObject("pendulum/mass", ...)
+meshcat.SetTransform("pendulum/mass", ...)
+
+meshcat.StartRecording()
+for i in range(...):
+    meshcat.SetTransform("pendulum", ..., t[i])
+meshcat.SetTransform("pendulum", ..., t[0])
+
+meshcat.StopRecording()
+meshcat.PublishRecording()
 ```
 
 > Note: it is normal for meshcat to take a bit of time (less than 1 minute) to initialize and display the pendulum object to the screen. Just be patient.
