@@ -23,3 +23,7 @@ where $$k_p = 10$$ and $$k_d = 5$$.
 ## Extensions
 
 1. Choose a new dynamical system (torque-controlled pendulum, etc.) and use a PD controller to make it go towards a goal (maybe hold a 10 degree angle with zero velocity).
+
+### Next Steps
+
+[Lesson 3](../Lesson-3/)

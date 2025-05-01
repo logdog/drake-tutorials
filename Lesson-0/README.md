@@ -38,6 +38,8 @@ python -c "import pydrake; print(pydrake)"
 
 Should print `<module 'pydrake' from '/home/ldihel/dev/drake-tutorials/.venv/lib/python3.12/site-packages/pydrake/__init__.py'>`.
 
+At this point, you can run any of the solution python scripts from Lesson 1 onwards to see what happens!
+
 ### Next Steps
 
 [Lesson 1](../Lesson-1/)

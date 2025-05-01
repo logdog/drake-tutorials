@@ -55,3 +55,7 @@ This is a hard task, but you can find inspiration [in Chapter 2 of underactuated
 > Warning: make sure you set the initial condition to a non-zero value! Otherwise the energy shape control will no nothing because $$\dot\theta(t) = 0$$ so the output torque will be zero!
 
 > Pro Tip: if you are having trouble with energy shaping, you can just set the initial condition to something like 179 degrees and see if your LQR controller can balance the pendulum upright.
+
+### Next Steps
+
+[Lesson 4](../Lesson-4/)

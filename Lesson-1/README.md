@@ -40,3 +40,6 @@ class Controller(LeafSystem):
         output.SetFromVector([u])
 ```
 
+### Next Steps
+
+[Lesson 2](../Lesson-2/)
