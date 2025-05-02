@@ -194,7 +194,7 @@ if __name__ == "__main__":
     simulator = Simulator(diagram, context)
     
     # run the simulation
-    print("Running simulation...")
+    # meshcat.Set2dRenderMode(xmin=-2, xmax=2, ymin=-2, ymax=2) # try uncommenting this!
     meshcat.StartRecording()
     simulator.Initialize()
     simulator.AdvanceTo(10.0)
