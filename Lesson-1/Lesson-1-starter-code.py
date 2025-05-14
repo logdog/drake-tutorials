@@ -28,7 +28,7 @@ class DoubleIntegrator(LeafSystem):
     def DoCalcTimeDerivatives(self, context, derivatives):
         # read the input
         u = self.get_input_port().Eval(context)[0]
-        
+    
         # read the output
         state = context.get_continuous_state().get_vector()
         x = state.GetAtIndex(0)

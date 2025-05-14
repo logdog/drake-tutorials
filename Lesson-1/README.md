@@ -40,6 +40,10 @@ class Controller(LeafSystem):
         output.SetFromVector([u])
 ```
 
+## Extensions
+
+1. Replace the LeafSystem controller which outputs a sinusoidal output with a built-in primitive block [Sine](https://drake.mit.edu/doxygen_cxx/classdrake_1_1systems_1_1_sine.html). You will need to use `controller.GetOutputPort("y0")` rather than `controller.get_output_port()` because the `Sine` block has three output ports instead of 1. (The correct output port cannot be assumed implicitly.) See the solution for details.
+
 ### Next Steps
 
 [Lesson 2](../Lesson-2/)

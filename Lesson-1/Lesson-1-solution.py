@@ -8,6 +8,7 @@ from pydrake.all import (
     Simulator,
     LeafSystem,
     LogVectorOutput,
+    Sine,
 )
 
 # double integrator system with a continuous state
@@ -57,16 +58,27 @@ if __name__ == "__main__":
     plant = builder.AddSystem(DoubleIntegrator())
     plant.set_name("double integrator")
     
+    # use a LeafSystem to create a sinusoidal input
     controller = builder.AddSystem(Controller())
     controller.set_name("My Controller")
-    
     builder.Connect(controller.get_output_port(), plant.get_input_port())
+    
+    # or comment out the 3 lines above, and uncomment
+    # the 3 lines below to use the Sine source for the extension
+    # controller = builder.AddSystem(Sine(1.0, 1, 0.0, 1, True))
+    # controller.set_name("Sine Controller")
+    # builder.Connect(controller.GetOutputPort("y0"), plant.get_input_port())
     
     logger = LogVectorOutput(plant.get_output_port(), builder)
     logger.set_name("output state logger")
     
+    # if using LeafSystem, uncomment the lines below
     logger2 = LogVectorOutput(controller.get_output_port(), builder)
     logger2.set_name("input logger")
+    
+    # if using Sine, uncomment the line blow
+    # logger2 = LogVectorOutput(controller.GetOutputPort("y0"), builder)
+    # logger2.set_name("input logger")
     
     diagram = builder.Build()
     diagram.set_name("Double Integrator System (Solution)")
