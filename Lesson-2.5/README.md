@@ -13,7 +13,7 @@ integrator_ = std::unique_ptr<IntegratorBase<T>>(
 From the code above, you can see that there is a `SimulatorConfig` class which contains default settings used to set the `max_step_size`, and `target_accuracy`. This should spark your curiosity: is there a way we can set these settings ourselves for our own simulations? The answer is yes!
 
 
-In Python, we can create a `SimulatorConfig` object and then use the `ApplySimulatorConfig` function to apply these settings to the integrator. For example, if we want to set the maximum step size, this is how we do it. Be sure to import `SimulatorConfig` and `SimulatorConfig` before you use them!
+In Python, we can create a `SimulatorConfig` object and then use the `ApplySimulatorConfig` function to apply these settings to the integrator. For example, if we want to set the maximum step size, this is how we do it. Be sure to import `SimulatorConfig` and `ApplySimulatorConfig` before you use them!
 
 ```python
 # simulator = Simulator(diagram, context)
@@ -43,4 +43,4 @@ This seems to imply that if we disable `use_error_control` then we can actually 
 $$
 \ddot x = 10 \sin x
 $$
-where $$x=0$$ corresponds to the pendulum in the upright position. Compare the differences betweeen using the default simulator options and versus manually setting the step sizes to `dt=0.001, dt=0.01, dt=0.1`. Investigate `dt` for the default simulator.
+where $$x=0$$ corresponds to the pendulum in the upright position. Compare the differences betweeen using the default simulator options and versus manually setting the step sizes to `dt=0.001, dt=0.01, dt=0.1`. Investigate `dt` for the default simulator. Starter code is provided.

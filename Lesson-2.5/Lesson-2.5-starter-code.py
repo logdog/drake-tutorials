@@ -6,8 +6,7 @@ from pydrake.all import (
     Simulator,
     LeafSystem,
     LogVectorOutput,
-    ApplySimulatorConfig,
-    SimulatorConfig,
+    # TODO: import ApplySimulatorConfig and SimulatorConfig
 )
 
 class InvertedPendulum(LeafSystem):
@@ -25,7 +24,8 @@ class InvertedPendulum(LeafSystem):
         x_dot = state.GetAtIndex(1)
         
         # state space equations
-        x_ddot = 10*np.sin(x)
+        # TODO: add the dynamics of the inverted pendulum
+        x_ddot = ...
         
         # update the derivatives for the continous-time integrator
         derivatives.get_mutable_vector().SetFromVector(
@@ -52,8 +52,8 @@ def do_simulation(time_step=0):
     # based on the time step, set the simulator configuration
     if (time_step > 0):
         simulator_config = SimulatorConfig(
-            max_step_size=time_step,
-            use_error_control=False,
+            # TODO: set the maximum step size
+            # TODO: set the error control flag to False
         )
         ApplySimulatorConfig(simulator_config, simulator)
         
