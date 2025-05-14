@@ -37,7 +37,7 @@ The best way to learn anything is to experiment. There are listed Tasks and Exte
     * Simulate Double Integrator with Open Loop Control
 * [Lesson 2: Simulate Closed Loop System](./Lesson-2)
     * PD Controller for Double Integrator
-* [Lesson 2.5: Simulator Configuration](./Lesson/2.5/)
+* [Lesson 2.5: Simulator Configuration](./Lesson-2.5/)
     * Setting Maximum Step Size
     * Setting Fixed Integrator Step Size
 * [Lesson 3: Linearize Leaf System with Auto Diff](./Lesson-3/)
