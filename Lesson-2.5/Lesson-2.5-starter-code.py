@@ -53,7 +53,7 @@ def do_simulation(time_step=0):
     if (time_step > 0):
         simulator_config = SimulatorConfig(
             # TODO: set the maximum step size
-            # TODO: set the error control flag to False
+            # TODO: set the error control flag
         )
         ApplySimulatorConfig(simulator_config, simulator)
         
