@@ -48,6 +48,11 @@ The best way to learn anything is to experiment. There are listed Tasks and Exte
     * Use Meshcat to add visualization objects decoupled from simulation
     * Use Scene Graph and Meshcat Visualizer to add geometry into simulation
 * [Lesson 5: Simulate with Multibody Plant from URDF](./Lesson-5/)
+    * Creating URDF Files
+    * Loading Multibody Plant from URDF
+    * Linearize Multibody Plant and add LQR Controller
+* [Lesson 6: Trajectory Optimization Crash Course]
+    * TODO
 <!-- * [Lesson 6: Linearize Multibody Plant]
 * [Lesson 7: Discrete-Time Controllers with Continuous-Time Plants] -->
 

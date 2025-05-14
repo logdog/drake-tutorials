@@ -34,7 +34,7 @@ class Controller(LeafSystem):
         LeafSystem.__init__(self)
         self.DeclareVectorOutputPort("u", 1, self.MyOutput)
 
-    def Controller(self, context, output):
+    def MyOutput(self, context, output):
         t = context.get_time()
         u = 10*t # modify this line
         output.SetFromVector([u])
