@@ -1,5 +1,11 @@
 ## Lesson 0: Installation
 
+## Windows Installation Instructions
+
+Drake is not supported by Windows. However, you can run Drake using [WSL](https://learn.microsoft.com/en-us/windows/wsl/install). If you haven't already, install WSL using the link above. Then, you can continue with the Linux Install instructions below.
+
+## Linux Installation Instructions
+
 ### Step 1
 
 First, clone this repository. On a terminal on your computer, navigate to a good place for this repository to exist, and run the following command to clone the repo.
