@@ -40,7 +40,9 @@ _Advanced:_ If you are curious how we are able to call the `ApplySimulatorConfig
 integrator.set_fixed_step_mode(!config.use_error_control);
 ```
 This seems to imply that if we disable `use_error_control` then we can actually make the integrator use a fixed step size. You task is to experiment, and try to make the simulator use a fixed-step size. Consider the inverted pendulum as a plant
+
 $$
 \ddot x = 10 \sin x
 $$
+
 where $$x=0$$ corresponds to the pendulum in the upright position. Compare the differences betweeen using the default simulator options and versus manually setting the step sizes to `dt=0.001, dt=0.01, dt=0.1`. Investigate `dt` for the default simulator. Starter code is provided.
