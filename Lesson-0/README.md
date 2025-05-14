@@ -31,7 +31,7 @@ If you type in the command `which pip` into your environment, it should be in `.
 Install drake, matplotlib, and numpy.
 
 ```
-pip install drake matplotlib numpy
+pip install drake
 ```
 
 ### Step 4
