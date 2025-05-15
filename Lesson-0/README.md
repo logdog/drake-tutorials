@@ -8,7 +8,12 @@ While still in your powershell window, install Ubuntu 24.04 if possible, but Ubu
 ```powershell
 wsl --install -d Ubuntu-24.04
 ```
-This will take a few minutes to complete.
+This will take a few minutes to complete. When completed, go ahead and update/upgrade your WSL and then install `graphviz` using:
+```powershell
+sudo apt update
+sudo apt upgrade
+sudo apt install graphviz
+```
 
 Next, open VSCode and install the WSL extension from Microsoft. Also be sure to install the Python extension and the Jupyter extension.
 
