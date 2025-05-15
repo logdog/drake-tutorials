@@ -10,7 +10,7 @@ wsl --install -d Ubuntu-24.04
 ```
 This will take a few minutes to complete.
 
-Next, open VSCode and install the WSL extension from Microsoft.
+Next, open VSCode and install the WSL extension from Microsoft. Also be sure to install the Python extension and the Jupyter extension.
 
 Then, open the command pallet (`Ctrl+Shift+P`) and select `WSL: Connect to WSL in Distro using New Window`. Select `Ubuntu-24.04` and continue. Then, you can go ahead and continue as normal with the Linux/MacOS install instructions.
 
