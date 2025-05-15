@@ -129,5 +129,7 @@ if __name__ == "__main__":
     plt.title("Input vs Time")
     plt.xlabel("Time (s)")
     plt.ylabel("Input (m/s^2)")
-    
+    plt.legend()
+    plt.grid()
+    plt.show()
     
