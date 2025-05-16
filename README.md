@@ -52,6 +52,9 @@ The best way to learn anything is to experiment. There are listed Tasks and Exte
     * Loading Multibody Plant from URDF
     * Introspecting Multibody Plant
     * Inspecting SceneGraph
+* [Lesson 5.5: Linearizing Multibody Plant](/Lesson-5.5/)
+    * Linearize Multibody Plant from URDF
+    * LQR Controller for Triple Pendulum
 <!-- * [Lesson 6: Trajectory Optimization Crash Course]
     * TODO -->
 <!-- * [Lesson 6: Linearize Multibody Plant]
