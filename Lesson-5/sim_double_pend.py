@@ -37,7 +37,7 @@ import matplotlib.pyplot as plt
 
 if __name__ == "__main__":
     # TODO: change to DP-1.urdf, DP-2.urdf, DP-3.urdf, DP-4.urdf
-    urdf_path = os.path.join(os.path.dirname(__file__), "DP-4.urdf")
+    urdf_path = os.path.join(os.path.dirname(__file__), "DP-3.urdf")
     
     meshcat = Meshcat()
     meshcat.SetCameraPose(

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot name="DoublePendulum2">
+<robot name="DoublePendulum3">
 
   <!-- define some materials -->
   <material name="black">
