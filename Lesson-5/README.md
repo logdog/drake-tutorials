@@ -261,7 +261,7 @@ When the MultibodyPlant is created, many changes are made to the `SceneGraph`. B
 inspector = scene_graph.model_inspector()
 ```
 
-Browse some of the functions in the documentation above, and then read through and run [inspect_double_pend.py](inspect_double_pend.py) for each iteration of the URDF file in this tutorial: `DP-1.urdf`, `DP-2.urdf`, and `DP-3.urdf`. Try to understand what additions are occurring between each iteration of the URDF.
+Browse some of the functions in the documentation above, and then read through and run [inspect_double_pend.py](inspect_double_pend.py) for each iteration of the URDF file in this tutorial: `DP-1.urdf`, `DP-2.urdf`, `DP-3.urdf`, and `DP-4.urdf`. Try to understand what additions are occurring between each iteration of the URDF.
 
 ### Task 4
 
