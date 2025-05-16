@@ -268,7 +268,7 @@ Browse some of the functions in the documentation above, and then read through a
 Now that you are familiar with URDF, MultibodyPlant, and SceneGraph, complete the following tasks.
 
 1. Create a triple pendulum (`TP.urdf`) and simulate it.
-2. Modify the lengths of the triple pendulum in the URDF code.
+2. Modify the length of the third arm to be 2 meters.
 
 ### Extensions
 
