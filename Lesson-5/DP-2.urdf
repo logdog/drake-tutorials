@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<robot name="DoublePendulum2">
+
+  <link name="upper_arm">
+    <!-- add a point mass 1 meter below the frame -->
+    <inertial>
+      <origin xyz="0 0 -1" rpy="0 0 0" />
+      <mass value="1" />
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/> 
+    </inertial>
+  </link>
+
+  <link name="lower_arm">
+    <inertial>
+      <origin xyz="0 0 -1" rpy="0 0 0" />
+      <mass value="1" />
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/> 
+    </inertial>
+  </link>
+
+  <joint name="shoulder" type="revolute">
+    <parent link="world"/>
+    <child link="upper_arm" />
+    <axis xyz="0 1 0" />S
+    <origin xyz="0 0 0" />
+  </joint>
+
+  <joint name="elbow" type="revolute">
+    <parent link="upper_arm"/>
+    <child link="lower_arm" /> 
+    <axis xyz="0 1 0" />
+    <origin xyz="0 0 -1" />
+  </joint>
+
+</robot>

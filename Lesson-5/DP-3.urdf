@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<robot name="DoublePendulum2">
+
+  <!-- define some materials -->
+  <material name="black">
+    <color rgba="0 0 0 1" />
+  </material>
+  <material name="MITred">
+    <color rgba=".6 .2 .2 1" />
+  </material>
+
+  <link name="upper_arm">
+    <!-- add a point mass 1 meter below the frame -->
+    <inertial>
+      <origin xyz="0 0 -1" rpy="0 0 0" />
+      <mass value="1" />
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/> 
+    </inertial>
+
+    <!-- draw the point mass -->
+    <visual>
+      <origin xyz="0 0 -1"/>
+      <geometry>
+        <sphere radius=".1"/>
+      </geometry>
+      <material name="MITred" />
+    </visual>
+
+    <!-- draw a connecting rod -->
+    <!-- note: the cylinder will be centered around its center of volume -->
+    <!-- and since the length of the rod is 1 m, we must have a -0.5 m offset -->
+    <visual>
+      <origin xyz="0 0 -.5" rpy="0 0 0" />
+      <geometry>
+          <cylinder length="1" radius=".01" />
+      </geometry>
+      <material name="black" />
+    </visual>
+  </link>
+
+  <link name="lower_arm">
+    <inertial>
+      <origin xyz="0 0 -1" rpy="0 0 0" />
+      <mass value="1" />
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/> 
+    </inertial>
+    <visual>
+      <origin xyz="0 0 -1"/>
+      <geometry>
+        <sphere radius=".1"/>
+      </geometry>
+      <material name="MITred" />
+    </visual>
+     <visual>
+      <origin xyz="0 0 -.5" rpy="0 0 0" />
+      <geometry>
+          <cylinder length="1" radius=".01" />
+      </geometry>
+      <material name="black" />
+    </visual>
+  </link>
+
+  <joint name="shoulder" type="revolute">
+    <parent link="world"/>
+    <child link="upper_arm" />
+    <axis xyz="0 1 0" />
+    <origin xyz="0 0 0" />
+  </joint>
+
+  <joint name="elbow" type="revolute">
+    <parent link="upper_arm"/>
+    <child link="lower_arm" /> 
+    <axis xyz="0 1 0" />
+    <origin xyz="0 0 -1" />
+  </joint>
+
+</robot>

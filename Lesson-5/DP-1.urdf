@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<robot name="DoublePendulum1">
+
+  <link name="upper_arm"/>
+  <link name="lower_arm"/>
+
+  <joint name="shoulder" type="revolute">
+    <parent link="world"/>
+    <child link="upper_arm" />
+    <axis xyz="0 1 0" />
+    <!-- The upper arm is connected to the origin -->
+    <origin xyz="0 0 0" />
+  </joint>
+
+  <joint name="elbow" type="revolute">
+    <parent link="upper_arm"/>
+    <child link="lower_arm" /> 
+    <axis xyz="0 1 0" />
+    <!-- The lower arm is connected 1 meter below the upper arm -->
+    <origin xyz="0 0 -1" />
+  </joint>
+
+</robot>
