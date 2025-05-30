@@ -67,7 +67,7 @@ if __name__ == "__main__":
     controller.set_name("PD controller")
     
     # TODO: connect the controller output to the plant input
-    # TODO: connect the plane output to the controller input
+    # TODO: connect the plant output to the controller input
     
     logger = LogVectorOutput(plant.get_output_port(), builder)
     logger.set_name("output state logger")
