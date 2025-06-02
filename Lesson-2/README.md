@@ -22,7 +22,16 @@ where $$k_p = 10$$ and $$k_d = 5$$.
 
 ## Extensions
 
-1. Choose a new dynamical system (torque-controlled pendulum, etc.) and use a PD controller to make it go towards a goal (maybe hold a 10 degree angle with zero velocity).
+1. Add [saturation](https://drake.mit.edu/doxygen_cxx/classdrake_1_1systems_1_1_saturation.html) to the output of your controller using a `Saturation` block. Starter code is provided.
+```python
+sat = builder.AddSystem(Saturation([-min_value],[max_value]))
+...
+builder.Connect(controller.get_output_port(), sat.get_input_port())
+builder.Connect(sat.get_output_port(), plant.get_input_port())
+...
+```
+
+2. Choose a new dynamical system (torque-controlled pendulum, etc.) and use a PD controller to make it go towards a goal (maybe hold a 10 degree angle with zero velocity).
 
 ### Next Steps
 
