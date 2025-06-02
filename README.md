@@ -58,6 +58,7 @@ The best way to learn anything is to experiment. There are listed Tasks and Exte
 * [Lesson 6: Discrete Systems and the Simulator](/Lesson-6/)
     * Discrete States, Periodic Update Events, Per-Step Publish Events
     * Mixing Continuous and Discrete Systems
+    * Simulate Continuous Plant with Discrete Controller and Zero Order Hold
 <!-- * [Lesson 6: Trajectory Optimization Crash Course]
     * TODO -->
 <!-- * [Lesson 6: Linearize Multibody Plant]

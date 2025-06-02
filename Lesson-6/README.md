@@ -1,4 +1,4 @@
-## Lesson 6: Discrete System and the Simulator
+## Lesson 6: Discrete Systems and the Simulator
 
 
 ## Learning about Discrete Systems
@@ -144,4 +144,90 @@ You can see that the exact same order for the `Output()` and `Update()` function
 
 ## Mixing Continuous and Discrete Systems
 
-TODO
+For many practical applications in robotics, you will have a continuous time system driven by a discrete-time controller (typically running on a microcontroller or computer), whose output is a zero-order hold.
+
+To simulate such a system in Drake, you model the continuous time plant as a LeafSystem with continuous state (as we did in Lessons 1-5), attach a zero-order hold to the output of the plant (this effectively samples the state), and then connect the output of the ZOH to your discrete controller. Your controller then connects to the input of the plant.
+
+Take a look at `example3.py`. You will see the the plant has 2 continuous states and the ZOH has two discrete states. Every `dt=1/50` seconds, a periodic discrete update event occurs which updates the discrete state of the ZOH. The controller has no state, and so it just looks at the most recent value of the ZOH state and calculates its output based off that.
+
+### A Deep Dive into the Simulator Steps
+
+I took the liberty of adding print statements to three methods: `ZOH.LatchInputVectorToState()`, `Plant.DoCalcTimeDerivatives()`, and `Controller.Output()`. Run the `example3.py` script and look at the print statement outputs.
+
+```
+Plant.Output():                 t=0.000000, theta=0.100000, theta_dot=0.000000
+ZOH.LatchInputVectorToState():  t=0.000000, theta=0.100000, theta_dot=0.000000
+Controller.Output():            t=0.000000, theta=0.100000, theta_dot=0.000000          u=-0.200000
+Plant.DoCalcTimeDerivatives():  t=0.000000,                                             u=-0.200000
+Controller.Output():            t=0.000500, theta=0.100000, theta_dot=0.000000          u=-0.200000
+Plant.DoCalcTimeDerivatives():  t=0.000500,                                             u=-0.200000
+Controller.Output():            t=0.001000, theta=0.100000, theta_dot=0.000000          u=-0.200000
+Plant.DoCalcTimeDerivatives():  t=0.001000,                                             u=-0.200000
+Plant.DoCalcTimeDerivatives():  t=0.001000,                                             u=-0.200000
+...
+Controller.Output():            t=0.018000, theta=0.100000, theta_dot=0.000000          u=-0.200000
+Plant.DoCalcTimeDerivatives():  t=0.018000,                                             u=-0.200000
+Controller.Output():            t=0.020000, theta=0.100000, theta_dot=0.000000          u=-0.200000
+Plant.DoCalcTimeDerivatives():  t=0.020000,                                             u=-0.200000
+Plant.Output():                 t=0.020000, theta=0.099764, theta_dot=-0.023572
+ZOH.LatchInputVectorToState():  t=0.020000, theta=0.099764, theta_dot=-0.023572
+Controller.Output():            t=0.020000, theta=0.099764, theta_dot=-0.023572         u=-0.187742
+Plant.DoCalcTimeDerivatives():  t=0.020000,                                             u=-0.187742
+Controller.Output():            t=0.025000, theta=0.099764, theta_dot=-0.023572         u=-0.187742
+Plant.DoCalcTimeDerivatives():  t=0.025000,                                             u=-0.187742
+Controller.Output():            t=0.030000, theta=0.099764, theta_dot=-0.023572         u=-0.187742
+Plant.DoCalcTimeDerivatives():  t=0.030000,                                             u=-0.187742
+Controller.Output():            t=0.030000, theta=0.099764, theta_dot=-0.023572         u=-0.187742
+Plant.DoCalcTimeDerivatives():  t=0.030000,                                             u=-0.187742
+```
+
+At `t=0` the simulator does a discrete update (wants to update the discrete state of `ZOH`), but doing so requires knowledge of the input to the `ZOH`, thus `Plant.Output()` is called just before `ZOH.LatchInputVectorToState()`. The simulator does an integration step to update the continuous state from `t=0` to `t=0.0005`, but doing so requires knowledge of the input port of the plant, so a call to `Controller.Output()` is made before `Plant.DoCalcTimeDerivatives()` is called. The next step advances time from `t=0.0005` to `t=0.001`, but the `ZOH.LatchInputVectorToState()` function is not called because no discrete updates need to occur at this time. As part of the error controlled integration scheme, `Plant.DoCalcTimeDerivatives()` is sometimes called in rapid succession. This pattern repeats, slowly integrating the continuous state and updating time.
+
+At `t=0.018` seconds, no discrete updates occur, and the continuous states are integrated to `t=0.02` (the state is now $$x^-(0.2)$$). At `t=0.02` a discrete update occurs so we see the two function calls `Plant.Output()` and `ZOH.LatchInputVectorToState()` again. The discrete state is now $$x_d^+(t)$$. The integrating process continuous until `t=2*dt=0.04` when another discrete update occurs, and the simulation ends at `t=0.06`.
+
+### A Very Important Detail
+
+Here is an important question: what is the output of the controller at `t=0.02`? This is sort of a trick question, because our print statements clearly show that `u=-0.2` before the `ZOH.LatchInputVectorToState()` function, but then `u=-0.187742` after. This is because `u(0.02)` depends on if we are using `x-(0.02)` or `x+(0.02)`. To see how Drake handles this conundrum, run `example4.py` which is the same exact code, except that I removed the print statements and added a logger for the controller output.
+
+```
+t=0.000000, u=-0.000000
+t=0.020000, u=-0.200000
+t=0.040000, u=-0.187742
+t=0.060000, u=-0.174717
+```
+
+Here, we see that at `t=0.02`, the output is `u=-0.2`. Even stranger, at `t=0` we have `u=0` which seems like it cannot be correct, since our initial condition of the plant that `theta=0.1`! You need to recall that `u` depends on the output of the `ZOH` and not the output of the plant, so before the `ZOH` is updated at `t=0` the output of the controller `u` is set. When we use a `VectorLogSink` to log the output port of the controller, it is actually reading the value of $$u^-(t)$$ and not $$u^+(t)$$. (That is, we are logging before the discrete-update step of the simulator occurs.) This is not an inherent problem with Drake, and your simulation is running perfectly! The danger here is that, from the logged data, you might think that `u=0` for `0 <= t < dt` which is simply not true.
+
+### Getting Around the Sampling Conundrum
+
+If you want `u` to read $$u^+(t)$$, there are a few options:
+
+0. This isn't an option yet, being able to log after the discrete update is an open feature request of Drake. See [https://github.com/RobotLocomotion/drake/issues/20256](https://github.com/RobotLocomotion/drake/issues/20256).
+1. You can shift the time that you are logging by `dt` so that the "proper" value of `u` is plotted/saved when your simulation finishes. (Not recommended)
+2. You can manually trigger publish events to the logger which occur after the discrete update. (See `example5.py`)
+
+Here is how method 2 works above. First, you set the `TriggerType` of the `LogVectorOutput` to be forced.
+
+```python
+controller_logger = LogVectorOutput(controller.get_output_port(0), builder, set([TriggerType.kForced]))
+```
+
+Then you manually force logging to occur exact when you want it to:
+```python
+for i in range(1,4):
+    simulator.AdvancePendingEvents()
+    controller_logger.ForcedPublish(controller_logger.GetMyContextFromRoot(context))
+    simulator.AdvanceTo(i*dt)
+```
+
+### Task 2
+
+Go through examples 3, 4, and 5 and make sure you understand the order in which the print functions are called. Do you understand why stating what the output of the controller is at `t=dt` is a conundrum? Do you accept the fact that, by default, `LogVectorOutput` is going to read before the discrete update step? Do you understand the different ways to get around this problem?
+
+Also, replace `MyZeroOrderHold` with `ZeroOrderHold` and verify that the print statement outputs are the same.
+
+### Task 3
+
+Simulate a pendulum PD controller which stabilizes the pendulum to the unstable equilibrium point. The pendulum plant should be continuous, while the controller is discrete. Change the controller frequency from 1kHz to 100Hz to 10Hz. Compare the result to the continuous time plant without any zero-order hold. There should be two loggers in each simulation: one for the pendulum angle (continuous time) and one for the output of the controller. Make nice plots of the control input signals using `plt.step`. There is no need for 3d animations here -- using matplotlib will suffice.
+
+No starter code is provided, but you have Lessons 1-6 at your fingertips!
