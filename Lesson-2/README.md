@@ -31,7 +31,9 @@ builder.Connect(sat.get_output_port(), plant.get_input_port())
 ...
 ```
 
-2. Choose a new dynamical system (torque-controlled pendulum, etc.) and use a PD controller to make it go towards a goal (maybe hold a 10 degree angle with zero velocity).
+2. Replace our LeafSystem implementation of a PD controller using Drake's [PID Controller](https://drake.mit.edu/doxygen_cxx/classdrake_1_1systems_1_1controllers_1_1_pid_controller.html). You will also need to connect some input to the desired state port using a [ConstantVectorSource](https://drake.mit.edu/doxygen_cxx/classdrake_1_1systems_1_1_constant_vector_source.html). 
+
+3. Choose a new dynamical system (torque-controlled pendulum, etc.) and use a PD controller to make it go towards a goal (maybe hold a 10 degree angle with zero velocity).
 
 ### Next Steps
 
