@@ -22,7 +22,9 @@ where $$k_p = 10$$ and $$k_d = 5$$.
 
 ## Extensions
 
-1. Add [saturation](https://drake.mit.edu/doxygen_cxx/classdrake_1_1systems_1_1_saturation.html) to the output of your controller using a `Saturation` block. Starter code is provided.
+1. Replace our LeafSystem implementation of a PD controller using Drake's [PID Controller](https://drake.mit.edu/doxygen_cxx/classdrake_1_1systems_1_1controllers_1_1_pid_controller.html). You will also need to connect some input to the desired state port using a [ConstantVectorSource](https://drake.mit.edu/doxygen_cxx/classdrake_1_1systems_1_1_constant_vector_source.html). 
+
+2. Add [saturation](https://drake.mit.edu/doxygen_cxx/classdrake_1_1systems_1_1_saturation.html) to the output of your controller using a `Saturation` block. Starter code is provided.
 ```python
 sat = builder.AddSystem(Saturation([-min_value],[max_value]))
 ...
@@ -30,8 +32,6 @@ builder.Connect(controller.get_output_port(), sat.get_input_port())
 builder.Connect(sat.get_output_port(), plant.get_input_port())
 ...
 ```
-
-2. Replace our LeafSystem implementation of a PD controller using Drake's [PID Controller](https://drake.mit.edu/doxygen_cxx/classdrake_1_1systems_1_1controllers_1_1_pid_controller.html). You will also need to connect some input to the desired state port using a [ConstantVectorSource](https://drake.mit.edu/doxygen_cxx/classdrake_1_1systems_1_1_constant_vector_source.html). 
 
 3. Choose a new dynamical system (torque-controlled pendulum, etc.) and use a PD controller to make it go towards a goal (maybe hold a 10 degree angle with zero velocity).
 

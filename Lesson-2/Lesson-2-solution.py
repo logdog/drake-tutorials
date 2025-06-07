@@ -54,7 +54,8 @@ class Controller(LeafSystem):
         x, x_dot = state
         
         # PD controller
-        u = -self.kp * (x - self.target_x) - self.kd * (x_dot - self.target_x_dot)
+        u = -self.kp * (x - self.target_x) - \
+            self.kd * (x_dot - self.target_x_dot)
         output.SetFromVector([u])
         
 if __name__ == "__main__":
@@ -124,7 +125,7 @@ if __name__ == "__main__":
     plt.plot(log2.sample_times(), log2.data()[0,:], label="u")
     plt.title("Input vs Time")
     plt.xlabel("Time (s)")
-    plt.ylabel("Input (m/s^2)")
+    plt.ylabel("Input (N)")
     plt.grid()
     plt.legend()
     plt.show()
