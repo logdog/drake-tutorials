@@ -119,20 +119,21 @@ if __name__ == "__main__":
     # what is the time step for the error controlled integrator?
     delta_t = np.diff(t)
     
-    plt.title("Time Step vs Sample Index")
+    plt.title("Time Step")
     plt.plot(delta_t, '*-')
+    plt.ylim(0, 0.1)
     plt.xlabel("Sample Index")
-    plt.ylabel("Time Step (s)")
+    plt.ylabel("dt (x)")
     plt.grid()
     plt.show()
     
-    plt.hist(delta_t, bins=20, alpha=0.5, label="original")
+    plt.hist(delta_t, bins=10, range=(0, 0.1), alpha=0.5, label="original")
     plt.title("Time Step Histogram")
     plt.xlabel("Time Step (s)")
-    plt.ylabel("Frequency")
+    plt.xlim(0, 0.1)
+    plt.ylabel("Occurances")
     plt.grid()
     plt.legend()
     plt.show()
-    
     
     

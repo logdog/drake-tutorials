@@ -118,11 +118,11 @@ if __name__ == "__main__":
     # what is the time step for the error controlled integrator?
     delta_t = np.diff(t)
     
-    plt.title("Time Step vs Sample Index")
+    plt.title("Time Step")
     plt.plot(delta_t, '*-')
     plt.ylim(0, 0.1)
     plt.xlabel("Sample Index")
-    plt.ylabel("Time Step (s)")
+    plt.ylabel("dt (x)")
     plt.grid()
     plt.show()
     
