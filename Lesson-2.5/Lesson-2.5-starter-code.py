@@ -6,7 +6,10 @@ from pydrake.all import (
     Simulator,
     LeafSystem,
     LogVectorOutput,
-    # TODO: import ApplySimulatorConfig and SimulatorConfig
+    ApplySimulatorConfig,
+    SimulatorConfig,
+    ExtractSimulatorConfig,
+    GetIntegrationSchemes,
 )
 
 class InvertedPendulum(LeafSystem):
@@ -54,6 +57,10 @@ def do_simulation(time_step=0):
     
     # create the simulator
     simulator = Simulator(diagram, context)
+
+    # Task 3: explore other integration schemes
+    # print(ExtractSimulatorConfig(simulator))
+    # print(GetIntegrationSchemes())
     
     # based on the time step, set the simulator configuration
     if (time_step > 0):

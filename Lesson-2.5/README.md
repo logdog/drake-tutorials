@@ -56,3 +56,21 @@ $$
 
 where $$x=0$$ corresponds to the pendulum in the upright position. Compare the differences betweeen using the default simulator options and versus manually setting the step sizes to `dt=0.001, dt=0.01, dt=0.1`. Investigate `dt` for the default simulator. Starter code is provided. **Make sure to disable the `publish_period` in your logger whenever you use a fixed step-size in your simulator options.** (For a learning opportunity, you can see what happens when you have both a fixed step-size simulator and a `publish_period` of 1/60. Can you explain what's happening under the hood?)
 
+3. By default, Runge-Kutta 3 integration scheme will be used. There are other options available:
+
+By running the following code, you can see all of the integration options.
+```python
+from pydrake.all import GetIntegrationSchemes
+print(GetIntegrationSchemes())
+```
+This is the output:
+```python
+['bogacki_shampine3', 'explicit_euler', 'implicit_euler', 'radau1', 'radau3', 'runge_kutta2', 'runge_kutta3', 'runge_kutta5', 'semi_explicit_euler', 'velocity_implicit_euler']
+```
+
+You can also verify that `runge_kutta3` is the default for the simulator.
+```python
+print(ExtractSimulatorConfig(simulator))
+```
+
+For task 3, use the simulator config options to change the integration scheme. Do you notice any numerical differences between the different methods?
