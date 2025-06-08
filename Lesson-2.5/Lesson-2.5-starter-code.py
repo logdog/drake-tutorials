@@ -39,6 +39,12 @@ def do_simulation(time_step=0):
     builder = DiagramBuilder()
     plant = builder.AddSystem(InvertedPendulum())
     logger = LogVectorOutput(plant.get_output_port(), builder)
+
+    # Instead, you can make the logger publish with a specific period so that
+    # your plots have a consistent time step, even without fixing the step size
+    # on the actual integration within the simulator.
+    # Comment out the line above and uncomment the line below to use a fixed publish period.
+    # logger = LogVectorOutput(plant.get_output_port(), builder, publish_period=1/60)
     diagram = builder.Build()
     
     # set initial conditions

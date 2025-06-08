@@ -39,6 +39,12 @@ def do_simulation(time_step=0):
     builder = DiagramBuilder()
     plant = builder.AddSystem(InvertedPendulum())
     logger = LogVectorOutput(plant.get_output_port(), builder)
+
+    # Instead, you can make the logger publish with a specific period so that
+    # your plots have a consistent time step, even without fixing the step size
+    # on the actual integration within the simulator.
+    # Comment out the line above and uncomment the line below to use a fixed publish period.
+    # logger = LogVectorOutput(plant.get_output_port(), builder, publish_period=1/60)
     diagram = builder.Build()
     
     # set initial conditions
@@ -49,7 +55,7 @@ def do_simulation(time_step=0):
     # create the simulator
     simulator = Simulator(diagram, context)
     
-    # based on the time step, set the simulator configuration
+    # use a fixed time step (assuming the time_step > 0)
     if (time_step > 0):
         simulator_config = SimulatorConfig(
             max_step_size=time_step,
@@ -108,15 +114,17 @@ if __name__ == "__main__":
     
     plt.title("Time Step vs Sample Index")
     plt.plot(delta_t, '*-')
+    plt.ylim(0, 0.1)
     plt.xlabel("Sample Index")
     plt.ylabel("Time Step (s)")
     plt.grid()
     plt.show()
     
-    plt.hist(delta_t, bins=20, alpha=0.5, label="original")
+    plt.hist(delta_t, bins=10, range=(0, 0.1), alpha=0.5, label="original")
     plt.title("Time Step Histogram")
     plt.xlabel("Time Step (s)")
-    plt.ylabel("Frequency")
+    plt.xlim(0, 0.1)
+    plt.ylabel("Occurances")
     plt.grid()
     plt.legend()
     plt.show()
