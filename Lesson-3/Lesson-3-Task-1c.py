@@ -7,6 +7,7 @@ from pydrake.all import (
     Simulator,
     LeafSystem,
     LogVectorOutput,
+    Saturation,
 )
 
 class Pendulum(LeafSystem):
@@ -65,26 +66,29 @@ if __name__ == "__main__":
     
     controller = builder.AddSystem(LQRController())
     controller.set_name("LQR controller")
+
+    sat = builder.AddSystem(Saturation([-5.0], [5.0]))
     
-    builder.Connect(controller.get_output_port(), plant.get_input_port())
+    builder.Connect(controller.get_output_port(), sat.get_input_port())
+    builder.Connect(sat.get_output_port(), plant.get_input_port())
     builder.Connect(plant.get_output_port(), controller.get_input_port())
     
     logger = LogVectorOutput(plant.GetOutputPort("y"), builder)
     logger.set_name("output state logger")
     
-    logger2 = LogVectorOutput(controller.get_output_port(), builder)
-    logger2.set_name("controller logger")
+    logger2 = LogVectorOutput(sat.get_output_port(), builder)
+    logger2.set_name("controller output (saturated)")
     
     diagram = builder.Build()
     diagram.set_name("Closed Loop System (Solution)")
     
-    # plot_system_graphviz(diagram)
-    # plt.show()
+    plot_system_graphviz(diagram)
+    plt.show()
     
     # set initial conditions
     context = diagram.CreateDefaultContext()
     context.SetTime(0.0)
-    context.SetContinuousState(np.deg2rad(np.array([170, 0])))
+    context.SetContinuousState(np.deg2rad(np.array([0, 0])))
     
     # create the simulator
     simulator = Simulator(diagram, context)
@@ -121,7 +125,7 @@ if __name__ == "__main__":
     
     plt.figure()
     plt.plot(log2.sample_times(), log2.data()[0,:], label="u")
-    plt.title("Input vs Time")
+    plt.title("Input (Saturated) vs Time")
     plt.xlabel("Time (s)")
     plt.ylabel("Torque (N-m)")
     plt.grid()

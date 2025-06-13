@@ -38,6 +38,10 @@ Use the starter code to get your matrix `K`. Then, in a separate file, create a 
 
 Next, you can modify your code to make the pendulum balance at the upright equilibrium point. Simply linearize the pendulum about the top equilibrium point to get a new matrix $$K$$, update your control law $$u = -K(x - x^\*)$$ where $$x^\* = (\pi, 0)$$ and set the initial condition to be close to the upright equilibrium point (the controller is linear after all, and going too far away from the equilibrium point may cause your controller to fail).
 
+### Task 1c
+
+Add saturation to the output of the controller (saturate at +/- 5.0 N-m). Make the initial condition (0,0). Does the LQR controller work? Now set the saturation to +/- 10 N-m. Does the control work now?
+
 ### Task 2 (Hard!)
 
 Now, you will create a closed-loop system which can do swing-up control of the inverted pendulum using energy shaping. The idea is simple: you want to get the total energy of the system to be equal to $$E = 2 m g \ell$$ (the potential energy of the pendulum in the upright position). So if the total energy is too low, pump energy into the system by adding torque in the direction the pendulum is swinging. If the total energy is too high, do the opposite. Practically, you will want to define an energy error term to be the difference between your current total energy and the target energy level, and add energy proportional to this error term. I recommend you add a function in your pendulum plant which calculates the total amount of energy in the system (see hint below).

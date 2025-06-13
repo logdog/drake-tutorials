@@ -50,13 +50,12 @@ Pendulum = Pendulum_[None] # default instantiation
 
 if __name__ == "__main__":
     
-    pendulum = Pendulum()
-    
     # linearize the pendulum  about the bottom equilibrium point
+    pendulum = Pendulum()
     
     # choose the equilibrium point we wish to linearize about
     context = pendulum.CreateDefaultContext()
-    context.SetContinuousState([0, 0]) # (or [np.pi, 0] for the top equilibrium)
+    context.SetContinuousState([np.pi, 0])
     pendulum.get_input_port().FixValue(context, [0]) 
 
     sys = Linearize(pendulum, context)
